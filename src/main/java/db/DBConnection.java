@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 public class DBConnection {
         private static Connection connection;
+        private static DBConnection instance;
+
     private DBConnection(){
         try {
             connection = DriverManager.getConnection(
@@ -17,7 +19,19 @@ public class DBConnection {
             throw new RuntimeException(e);
         }
 
-
     }
+
+    public static DBConnection getInstance(){
+        if (instance == null){
+            instance = new DBConnection();
+        }
+        return instance;
+    }
+
+    public static Connection getConnection(){
+        return connection;
+    }
+
+
 
 }
